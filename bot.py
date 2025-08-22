@@ -11,8 +11,9 @@ dp = Dispatcher(storage=MemoryStorage())
 
 @dp.message(Command("start"))
 async def start(message: types.Message):
-    kb = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text='Войти')], [InlineKeyboardButton(text='')]])
-    await message.answer(f"Здравствуй!")
+    kb = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text='Войти', url='google.com')], [InlineKeyboardButton(text='Зарегистрироваться', url='google.com')]])
+    await message.answer('Здравствуй!', reply_markup=kb)
+
 
 async def main():
     await dp.start_polling(bot)
