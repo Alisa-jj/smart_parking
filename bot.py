@@ -8,7 +8,6 @@ TOKEN = "8401965285:AAGgguWlbPOKzToFR3Gp_wKN9lXDZIDPeiA"
 bot = Bot(TOKEN)
 dp = Dispatcher(storage=MemoryStorage())
 
-# Команды:
 
 @dp.message(Command("start"))
 async def start(message: types.Message):
