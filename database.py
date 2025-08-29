@@ -17,15 +17,15 @@ class Users(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String(32), nullable=False)
-    sername = Column(String(32), nullable=False)
+    surname = Column(String(32), nullable=False)
     password = Column(String(512), nullable=False)
     email = Column(String(64), nullable=False, unique=True)
     tel = Column(String(16), nullable=True, unique=True)
 
-cars = relationship('Cars', secondary='user.car', back_populates='users')
+    cars = relationship('Cars', secondary=user_car, back_populates='users')
 
-def __repr__(self):
-    return f"<{self.name}, {self.sername}>"
+    def __repr__(self):
+        return f"<{self.name}, {self.surname}>"
 
 
 class Cars(Base):
@@ -37,10 +37,10 @@ class Cars(Base):
     model = Column(String(32), nullable=False)
     status = Column(Boolean, nullable=False)
 
-users = relationship('Users', secondary='users.car', back_populates='cars')
+    users = relationship('Users', secondary=user_car, back_populates='cars')
 
-def __repr__(self):
-    return f"<{self.model}, {self.color}, {self.plate}>"
+    def __repr__(self):
+        return f"<{self.model}, {self.color}, {self.plate}>"
 
 
 class Parking(Base):
@@ -48,5 +48,5 @@ class Parking(Base):
 
     car_id = Column(Integer, ForeignKey('cars.id'), primary_key=True)
     user_id = Column(Integer, ForeignKey('users.id'), primary_key=True)
-    entertime = Column(DateTime)
-    exittime = Column(DateTime)
+    entertime = Column(DateTime, default=datetime.now)
+    exittime = Column(DateTime, nullable=True)
