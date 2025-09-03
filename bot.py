@@ -50,11 +50,13 @@ async def register_email(message: types.Message, state: FSMContext):
     await message.answer(' Введи свой номер телефона (необязательно)')
     await state.set_state(RegisterState.tel)
 
+@dp.message(RegisterState.tel)
 async def register_tel(message: types.Message, state: FSMContext):
     await state.update_data(tel=message.text)
     await message.answer('Введи пароль для твоего аккаунта')
     await state.set_state(RegisterState.password)
 
+@dp.message(RegisterState.password)
 async def register_password(message: types.Message, state: FSMContext):
     await state.update_data(password=message.text)
 
